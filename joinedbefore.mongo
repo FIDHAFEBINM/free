@@ -1,0 +1,20 @@
+db.embloyees.aggregate([
+  {
+    $group: {
+      _id: "$dname",
+      earliestJoiningDate: { $min: "$DateOfJoining" }
+    }
+  },
+  {
+    $match: {
+      DateOfJoining: { $lt: "$earliestJoiningDate" }
+    }
+  },
+  {
+    $project: {
+      _id: 0,
+      name: { $concat: ["$first_name", " ", "$last_name"] },
+      yearJoined: { $year: "$DateOfJoining" }
+    }
+  }
+]);
