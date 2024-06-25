@@ -187,19 +187,16 @@ Query OK, 1 row affected (0.00 sec)
 mysql> insert into department values(1,"Headquarters","Houston");
 Query OK, 1 row affected (0.02 sec)
 
-mysql> insert into department values(1,"Headquarters","Houston");
-ERROR 1062 (23000): Duplicate entry '1' for key 'department.PRIMARY'
-mysql> create table employee(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(5
-,2),super_ssn char(9) foreign key references employee (ssn),dnumber int fore
-ign key references department(dnumber) default 5);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references employee (ssn),dnumber int foreign key references departm' at line 1
-mysql> create table employee(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(5,2),super_ssn char(9) foreign key references employee(ssn),dnumber int forei
-gn key references department(dnumber) default 5);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references employee(ssn),dnumber int foreign key references departme' at line 1
-mysql> create table employee(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(5,2),super_ssn char(9), foreign key(super_ssn) references employee(ssn),dnumb
-er int foreign key references department(dnumber) default 5);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'foreign key references department(dnumber) default 5)' at line 1
-mysql> create table employee(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(5,2),super_ssn char(9), foreign key(super_ssn) references employee(ssn),dnumber int, foreign key(dnumber) references department(dnumber) default 5);
-ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default 5)' at line 1
-mysql> create table employee(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(5,2),super_ssn char(9), foreign key(super_ssn) references employee(ssn),dnumber int default 5, foreign key(dnumber) references department(dnumber));
-Query OK, 0 rows affected, 1 warning (0.04 sec)
+mysql> create table employees(ssn char(9) primary key, name varchar(20) not null,age int ,check(age between 20 and 50),address varchar(30),salary float(7,2),super_ssn char(9), foreign key(super_ssn) references employees(ssn),dnumber int default 5, foreign key(dnumber) references department(dnumber));
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> insert into employees values(888665555,"James E Borg",45,"450 Stone Houston TX",55000,null,1);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees values(333445555,"Franklin T Wong",42,"638 Voss Houston TX",40000,888665555,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employees VALUES (123456789, "Jhon B Smith", 37, "731 Fondren Houston TX", 30000, 333445555, 5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
