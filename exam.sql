@@ -200,3 +200,31 @@ mysql> insert into employees VALUES (123456789, "Jhon B Smith", 37, "731 Fondren
 Query OK, 1 row affected (0.00 sec)
 
 mysql>
+mysql> select * from employees;
++-----------+--------------------+------+------------------------+----------+-----------+---------+
+| ssn       | name               | age  | address                | salary   | super_ssn | dnumber |
++-----------+--------------------+------+------------------------+----------+-----------+---------+
+| 123456789 | Jhon B Smith       |   37 | 731 Fondren Houston TX | 30000.00 | 333445555 |       5 |
+| 333445555 | Franklin T Wong    |   42 | 638 Voss Houston TX    | 40000.00 | 888665555 |       5 |
+| 453453453 | Joyce A English    |   28 | 5631 Rice Houston TX   | 25000.00 | 333445555 |       5 |
+| 666884444 | Ramesh K Narayan   |   35 | 975 Fire Oak Humple TX | 38000.00 | 333445555 |       5 |
+| 888665555 | James E Borg       |   45 | 450 Stone Houston TX   | 55000.00 | NULL      |       1 |
+| 987654321 | Jennifer S Wallace |   25 | 291 Berry Billaire TX  | 43000.00 | 888665555 |       4 |
+| 987987987 | Ahmad V Jabbar     |   22 | 980 Dallas Houston TX  | 25000.00 | 987654321 |       4 |
+| 999887777 | Alicia J Zelaya    |   31 | 3321 castle Spring TX  | 25000.00 | 987654321 |       4 |
++-----------+--------------------+------+------------------------+----------+-----------+---------+
+8 rows in set (0.00 sec)
+
+mysql> select employees.ssn,employees.name,employees.salary,department.dname from employees join department where department.dnumber=employees.dnumber and (dname="Reasearch" or salary>40000.00);
++-----------+--------------------+----------+----------------+
+| ssn       | name               | salary   | dname          |
++-----------+--------------------+----------+----------------+
+| 987654321 | Jennifer S Wallace | 43000.00 | Administration |
+| 888665555 | James E Borg       | 55000.00 | Headquarters   |
+| 123456789 | Jhon B Smith       | 30000.00 | Reasearch      |
+| 333445555 | Franklin T Wong    | 40000.00 | Reasearch      |
+| 453453453 | Joyce A English    | 25000.00 | Reasearch      |
+| 666884444 | Ramesh K Narayan   | 38000.00 | Reasearch      |
++-----------+--------------------+----------+----------------+
+6 rows in set (0.00 sec)
+
